@@ -6,13 +6,17 @@
 
 #include <MKRWAN.h>
 
-LoRaModem modem;
+//LoRaModem modem;
 
 // Uncomment if using the Murata chip as a module
-// LoRaModem modem(Serial1);
+LoRaModem modem(Serial1);
 
-String appEui;
-String appKey;
+// String appEui;
+// String appKey;
+
+const char *appEui = "70B3D57ED003DE98";
+const char *appKey = "F0D3F84292609C7215A3D63EB1F5DBF3";
+
 String devAddr;
 String nwkSKey;
 String appSKey;
@@ -37,25 +41,32 @@ void setup() {
   Serial.print("Your device EUI is: ");
   Serial.println(modem.deviceEUI());
 
-  int mode = 0;
-  while (mode != 1 && mode != 2) {
-    Serial.println("Are you connecting via OTAA (1) or ABP (2)?");
-    while (!Serial.available());
-    mode = Serial.readStringUntil('\n').toInt();
-  }
+  // int mode = 0;
+  // while (mode != 1 && mode != 2) {
+  //   Serial.println("Are you connecting via OTAA (1) or ABP (2)?");
+  //   while (!Serial.available());
+  //   mode = Serial.readStringUntil('\n').toInt();
+
+  int mode = 1;
+  // while (mode != 1 && mode != 2) {
+  //   Serial.println("Are you connecting via OTAA (1) or ABP (2)?");
+  //   while (!Serial.available());
+  //   mode = Serial.readStringUntil('\n').toInt();
+  // 
+  // }
 
   int connected;
   if (mode == 1) {
-    Serial.println("Enter your APP EUI");
-    while (!Serial.available());
-    appEui = Serial.readStringUntil('\n');
+    // Serial.println("Enter your APP EUI");
+    // while (!Serial.available());
+    // appEui = Serial.readStringUntil('\n');
 
-    Serial.println("Enter your APP KEY");
-    while (!Serial.available());
-    appKey = Serial.readStringUntil('\n');
+    // Serial.println("Enter your APP KEY");
+    // while (!Serial.available());
+    // appKey = Serial.readStringUntil('\n');
 
-    appKey.trim();
-    appEui.trim();
+    // appKey.trim();
+    // appEui.trim();
 
     connected = modem.joinOTAA(appEui, appKey);
   } else if (mode == 2) {
